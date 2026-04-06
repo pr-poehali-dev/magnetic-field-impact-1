@@ -19,8 +19,8 @@ const THEORY_CARDS = [
   },
   {
     icon: "Leaf",
-    title: "Влияние на растения и микроорганизмы",
-    text: "Постоянные магнитные поля малой интенсивности стимулируют прорастание семян и рост корневой системы у более 30 видов растений. Бактерии-магнетотактики синтезируют кристаллы магнетита для ориентирования в пространстве — внешние поля нарушают их поведение и метаболизм.",
+    title: "Влияние на растения",
+    text: "Постоянные магнитные поля малой интенсивности стимулируют прорастание семян и рост корневой системы. Данный эффект задокументирован у более 30 видов растений.",
   },
   {
     icon: "PawPrint",
@@ -364,8 +364,8 @@ export default function Index() {
                 <div className="w-12 h-12 bg-navy rounded-2xl flex items-center justify-center mb-4 group-hover:bg-sky-600 transition-colors">
                   <Icon name={card.icon} size={22} className="text-white" />
                 </div>
-                <h3 className="font-display font-bold text-navy text-lg mb-2">{card.title}</h3>
-                <p className="text-gray-700 text-sm leading-relaxed">{card.text}</p>
+                <h3 className="font-display font-bold text-navy text-xl mb-2">{card.title}</h3>
+                <p className="text-gray-700 text-base leading-relaxed">{card.text}</p>
               </div>
             ))}
           </div>
@@ -394,8 +394,8 @@ export default function Index() {
                 },
               ].map((type, i) => (
                 <div key={i} className="border-l-4 border-navy pl-4">
-                  <h4 className="font-bold text-navy text-base mb-1">{type.name}</h4>
-                  <p className="text-gray-600 text-sm mb-2">{type.desc}</p>
+                  <h4 className="font-bold text-navy text-lg mb-1">{type.name}</h4>
+                  <p className="text-gray-600 text-base mb-2">{type.desc}</p>
                   <span className="inline-block bg-navy/10 text-navy text-xs font-bold px-2 py-1 rounded-lg">
                     {type.range}
                   </span>
@@ -457,8 +457,8 @@ export default function Index() {
                     <Icon name={m.icon} size={18} className="text-sky-300" />
                   </div>
                   <div>
-                    <h4 className="font-bold text-white mb-1">{m.title}</h4>
-                    <p className="text-sky-100 text-sm leading-relaxed">{m.text}</p>
+                    <h4 className="font-bold text-white text-lg mb-1">{m.title}</h4>
+                    <p className="text-sky-100 text-base leading-relaxed">{m.text}</p>
                   </div>
                 </div>
               ))}
@@ -470,16 +470,16 @@ export default function Index() {
               <Icon name="BarChart2" size={20} className="text-sky-600" />
               Сравнительные результаты опытов
             </h3>
-            <p className="text-gray-500 text-sm mb-6">Контрольная группа vs. группа в магнитном поле</p>
+            <p className="text-gray-500 text-base mb-6">Контрольная группа vs. группа в магнитном поле</p>
             <BarChart data={EXPERIMENTS} />
             <div className="flex gap-6 mt-6">
               <div className="flex items-center gap-2">
                 <div className="w-4 h-4 rounded-full bg-navy" />
-                <span className="text-sm text-gray-700 font-medium">Контрольная группа</span>
+                <span className="text-base text-gray-700 font-medium">Контрольная группа</span>
               </div>
               <div className="flex items-center gap-2">
                 <div className="w-4 h-4 rounded-full bg-sky-500" />
-                <span className="text-sm text-gray-700 font-medium">Опытная группа (в поле)</span>
+                <span className="text-base text-gray-700 font-medium">Опытная группа (в поле)</span>
               </div>
             </div>
           </div>
@@ -497,12 +497,12 @@ export default function Index() {
                   style={{ borderColor: risk.color + "40" }}
                 >
                   <div
-                    className="shrink-0 text-center py-1.5 px-4 rounded-xl font-bold text-white text-sm"
+                    className="shrink-0 text-center py-1.5 px-4 rounded-xl font-bold text-white text-base"
                     style={{ background: risk.color }}
                   >
                     {risk.level}
                   </div>
-                  <p className="text-gray-800 text-sm md:text-base leading-relaxed">{risk.text}</p>
+                  <p className="text-gray-800 text-base md:text-lg leading-relaxed">{risk.text}</p>
                 </div>
               ))}
             </div>
@@ -582,11 +582,11 @@ export default function Index() {
                   >
                     <Icon name={rec.icon} size={18} className="text-white" />
                   </div>
-                  <h3 className="font-display font-bold text-navy text-lg">{rec.title}</h3>
+                  <h3 className="font-display font-bold text-navy text-xl">{rec.title}</h3>
                 </div>
                 <ul className="space-y-2">
                   {rec.items.map((item, j) => (
-                    <li key={j} className="flex gap-2 text-sm text-gray-700">
+                    <li key={j} className="flex gap-2 text-base text-gray-700">
                       <span
                         className="mt-1.5 w-2 h-2 rounded-full shrink-0"
                         style={{ background: rec.color }}
@@ -643,56 +643,56 @@ export default function Index() {
                 </div>
                 <div>
                   <h3 className="font-display font-bold text-xl">Тюриков Елисей Андреевич</h3>
-                  <p className="text-sky-200 text-sm">Автор исследования</p>
+                  <p className="text-sky-200 text-base">Автор исследования</p>
                 </div>
               </div>
-              <div className="space-y-3">
+              <div className="space-y-4">
                 <div className="flex items-center gap-3">
-                  <Icon name="GraduationCap" size={18} className="text-sky-300 shrink-0" />
-                  <span className="text-sky-100 text-sm">Сибирский политехнический техникум</span>
+                  <Icon name="GraduationCap" size={20} className="text-sky-300 shrink-0" />
+                  <span className="text-sky-100 text-base">Сибирский политехнический техникум</span>
                 </div>
                 <div className="flex items-center gap-3">
-                  <Icon name="Users" size={18} className="text-sky-300 shrink-0" />
-                  <span className="text-sky-100 text-sm">Группа ПР-25</span>
+                  <Icon name="Users" size={20} className="text-sky-300 shrink-0" />
+                  <span className="text-sky-100 text-base">Группа ПР-25</span>
                 </div>
                 <div className="flex items-center gap-3">
-                  <Icon name="BookOpen" size={18} className="text-sky-300 shrink-0" />
-                  <span className="text-sky-100 text-sm">Научно-исследовательский проект, 2026</span>
+                  <Icon name="BookOpen" size={20} className="text-sky-300 shrink-0" />
+                  <span className="text-sky-100 text-base">Научно-исследовательский проект, 2026</span>
                 </div>
                 <a
                   href="mailto:turikovelisej7@gmail.com"
                   className="flex items-center gap-3 hover:opacity-80 transition-opacity"
                 >
-                  <Icon name="Mail" size={18} className="text-sky-300 shrink-0" />
-                  <span className="text-sky-100 text-sm">turikovelisej7@gmail.com</span>
+                  <Icon name="Mail" size={20} className="text-sky-300 shrink-0" />
+                  <span className="text-sky-100 text-base">turikovelisej7@gmail.com</span>
                 </a>
                 <a
                   href="tel:+79134027189"
                   className="flex items-center gap-3 hover:opacity-80 transition-opacity"
                 >
-                  <Icon name="Phone" size={18} className="text-sky-300 shrink-0" />
-                  <span className="text-sky-100 text-sm">+7 913 402 71 89</span>
+                  <Icon name="Phone" size={20} className="text-sky-300 shrink-0" />
+                  <span className="text-sky-100 text-base">+7 913 402 71 89</span>
                 </a>
               </div>
             </div>
 
             <div className="bg-gray-50 rounded-3xl p-8 border-2 border-gray-100">
-              <h3 className="font-display font-bold text-navy text-lg mb-5">Задать вопрос</h3>
+              <h3 className="font-display font-bold text-navy text-xl mb-5">Задать вопрос</h3>
               <div className="space-y-4">
                 <div>
-                  <label className="block text-sm font-semibold text-gray-700 mb-1">Ваше имя</label>
+                  <label className="block text-base font-semibold text-gray-700 mb-1">Ваше имя</label>
                   <input
                     type="text"
                     placeholder="Иван Иванов"
-                    className="w-full border-2 border-gray-200 rounded-xl px-4 py-3 text-gray-900 text-sm focus:outline-none focus:border-navy transition-colors"
+                    className="w-full border-2 border-gray-200 rounded-xl px-4 py-3 text-gray-900 text-base focus:outline-none focus:border-navy transition-colors"
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-semibold text-gray-700 mb-1">Сообщение</label>
+                  <label className="block text-base font-semibold text-gray-700 mb-1">Сообщение</label>
                   <textarea
                     placeholder="Ваш вопрос или предложение..."
                     rows={4}
-                    className="w-full border-2 border-gray-200 rounded-xl px-4 py-3 text-gray-900 text-sm focus:outline-none focus:border-navy transition-colors resize-none"
+                    className="w-full border-2 border-gray-200 rounded-xl px-4 py-3 text-gray-900 text-base focus:outline-none focus:border-navy transition-colors resize-none"
                   />
                 </div>
                 <button className="w-full bg-navy text-white font-bold py-3 rounded-xl hover:bg-sky-700 transition-colors flex items-center justify-center gap-2">
@@ -731,10 +731,10 @@ export default function Index() {
               <iframe
                 width="100%"
                 height="100%"
-                src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1"
+                src="https://rutube.ru/play/embed/3d8b41b414a39f674ccfbdf8234b49ac?t=51"
                 title="Воздействие магнитных полей на живые организмы"
                 frameBorder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allow="clipboard-write; autoplay"
                 allowFullScreen
               />
             </div>
