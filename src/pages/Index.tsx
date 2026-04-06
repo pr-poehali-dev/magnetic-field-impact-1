@@ -18,24 +18,14 @@ const THEORY_CARDS = [
     text: "Все живые организмы генерируют слабые магнитные поля, обусловленные биоэлектрическими процессами. Клетки реагируют на внешние поля через ионные каналы мембран.",
   },
   {
-    icon: "Dna",
-    title: "Воздействие на ДНК",
-    text: "Исследования показывают, что сильные переменные поля (>10 мТл) способны влиять на экспрессию генов и структуру белковых молекул.",
-  },
-  {
     icon: "Leaf",
-    title: "Влияние на растения",
-    text: "Постоянные магнитные поля малой интенсивности стимулируют прорастание семян и рост корневой системы. Данный эффект задокументирован у более 30 видов растений.",
+    title: "Влияние на растения и микроорганизмы",
+    text: "Постоянные магнитные поля малой интенсивности стимулируют прорастание семян и рост корневой системы у более 30 видов растений. Бактерии-магнетотактики синтезируют кристаллы магнетита для ориентирования в пространстве — внешние поля нарушают их поведение и метаболизм.",
   },
   {
-    icon: "Microscope",
-    title: "Микроорганизмы",
-    text: "Бактерии-магнетотактики синтезируют кристаллы магнетита для ориентирования в пространстве. Внешние поля нарушают их поведение и метаболизм.",
-  },
-  {
-    icon: "Brain",
-    title: "Нейробиология",
-    text: "Переменные электромагнитные поля промышленной частоты (50 Гц) влияют на выработку мелатонина и могут нарушать циркадные ритмы человека.",
+    icon: "PawPrint",
+    title: "Влияние на животных",
+    text: "Многие животные используют магнитное поле Земли для навигации: птицы, рыбы, черепахи. Искусственные поля дезориентируют их миграционное поведение. У млекопитающих зафиксированы изменения в работе эндокринной и нервной систем при длительном воздействии.",
   },
   {
     icon: "Zap",
@@ -173,6 +163,7 @@ function SectionHeader({
 export default function Index() {
   const [activeSection, setActiveSection] = useState("hero");
   const [menuOpen, setMenuOpen] = useState(false);
+  const [videoOpen, setVideoOpen] = useState(false);
   const sectionRefs = useRef<Record<string, HTMLElement | null>>({});
 
   useEffect(() => {
@@ -273,12 +264,18 @@ export default function Index() {
           <div className="relative z-10 max-w-6xl mx-auto px-4 py-16 flex-1 flex flex-col justify-center">
             <div className="flex items-center gap-3 mb-8">
               <div className="h-px flex-1 max-w-12 bg-navy" />
-              <div className="flex items-center gap-2 border-2 border-navy rounded-full px-4 py-1.5">
-                <Icon name="GraduationCap" size={16} className="text-navy" />
-                <span className="text-navy font-bold text-xs md:text-sm tracking-wide uppercase">
+              <a
+                href="https://spt42.kemobl.ru/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 border-2 border-navy rounded-full px-4 py-1.5 hover:bg-navy hover:text-white transition-all duration-200 group"
+              >
+                <Icon name="GraduationCap" size={16} className="text-navy group-hover:text-white transition-colors" />
+                <span className="text-navy group-hover:text-white font-bold text-xs md:text-sm tracking-wide uppercase transition-colors">
                   Сибирский политехнический техникум
                 </span>
-              </div>
+                <Icon name="ExternalLink" size={13} className="text-navy group-hover:text-white transition-colors" />
+              </a>
               <div className="h-px flex-1 max-w-12 bg-navy" />
             </div>
 
@@ -301,9 +298,12 @@ export default function Index() {
             </div>
 
             <div className="text-center mb-12">
-              <div className="inline-flex items-center gap-3 bg-navy text-white px-6 py-3 rounded-2xl shadow-lg">
-                <Icon name="User" size={18} className="text-sky-300" />
-                <span className="font-bold text-base md:text-lg">Тюриков Елисей Андреевич</span>
+              <div className="inline-flex flex-col items-center gap-1 bg-navy text-white px-6 py-3 rounded-2xl shadow-lg">
+                <div className="flex items-center gap-3">
+                  <Icon name="User" size={18} className="text-sky-300" />
+                  <span className="font-bold text-base md:text-lg">Тюриков Елисей Андреевич</span>
+                </div>
+                <span className="text-sky-300 text-sm font-medium">студент группы ПР-25</span>
               </div>
             </div>
 
@@ -422,10 +422,17 @@ export default function Index() {
             subtitle="Результаты экспериментов по оценке влияния магнитных полей на рост растений и активность микроорганизмов"
           />
 
-          <div className="bg-navy rounded-3xl p-8 mb-10 text-white">
+          <div
+            className="bg-navy rounded-3xl p-8 mb-10 text-white cursor-pointer hover:ring-2 hover:ring-sky-400 transition-all group"
+            onClick={() => setVideoOpen(true)}
+          >
             <h3 className="font-display font-bold text-xl mb-4 flex items-center gap-2">
               <Icon name="ClipboardList" size={20} className="text-sky-300" />
               Методология исследования
+              <span className="ml-auto flex items-center gap-1.5 text-sm bg-sky-500/20 hover:bg-sky-500/40 transition-colors px-3 py-1 rounded-full">
+                <Icon name="Play" size={14} className="text-sky-300" />
+                <span className="text-sky-200 font-medium">Смотреть видео</span>
+              </span>
             </h3>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {[
@@ -645,13 +652,27 @@ export default function Index() {
                   <span className="text-sky-100 text-sm">Сибирский политехнический техникум</span>
                 </div>
                 <div className="flex items-center gap-3">
+                  <Icon name="Users" size={18} className="text-sky-300 shrink-0" />
+                  <span className="text-sky-100 text-sm">Группа ПР-25</span>
+                </div>
+                <div className="flex items-center gap-3">
                   <Icon name="BookOpen" size={18} className="text-sky-300 shrink-0" />
                   <span className="text-sky-100 text-sm">Научно-исследовательский проект, 2026</span>
                 </div>
-                <div className="flex items-center gap-3">
-                  <Icon name="FlaskConical" size={18} className="text-sky-300 shrink-0" />
-                  <span className="text-sky-100 text-sm">Направление: биофизика и экология</span>
-                </div>
+                <a
+                  href="mailto:turikovelisej7@gmail.com"
+                  className="flex items-center gap-3 hover:opacity-80 transition-opacity"
+                >
+                  <Icon name="Mail" size={18} className="text-sky-300 shrink-0" />
+                  <span className="text-sky-100 text-sm">turikovelisej7@gmail.com</span>
+                </a>
+                <a
+                  href="tel:+79134027189"
+                  className="flex items-center gap-3 hover:opacity-80 transition-opacity"
+                >
+                  <Icon name="Phone" size={18} className="text-sky-300 shrink-0" />
+                  <span className="text-sky-100 text-sm">+7 913 402 71 89</span>
+                </a>
               </div>
             </div>
 
@@ -683,6 +704,46 @@ export default function Index() {
           </div>
         </div>
       </section>
+
+      {/* VIDEO MODAL */}
+      {videoOpen && (
+        <div
+          className="fixed inset-0 z-50 bg-black/80 flex items-center justify-center p-4"
+          onClick={() => setVideoOpen(false)}
+        >
+          <div
+            className="bg-white rounded-3xl overflow-hidden w-full max-w-3xl shadow-2xl"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="flex items-center justify-between px-6 py-4 border-b border-gray-100">
+              <div className="flex items-center gap-2">
+                <Icon name="Play" size={18} className="text-navy" />
+                <span className="font-display font-bold text-navy">Воздействие магнитных полей на живые организмы</span>
+              </div>
+              <button
+                onClick={() => setVideoOpen(false)}
+                className="w-8 h-8 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center transition-colors"
+              >
+                <Icon name="X" size={16} className="text-gray-700" />
+              </button>
+            </div>
+            <div className="aspect-video">
+              <iframe
+                width="100%"
+                height="100%"
+                src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1"
+                title="Воздействие магнитных полей на живые организмы"
+                frameBorder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+              />
+            </div>
+            <div className="px-6 py-3 bg-gray-50 text-xs text-gray-500 text-center">
+              Нажмите вне окна или на ✕ чтобы закрыть
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* FOOTER */}
       <footer className="bg-navy text-white py-8">
