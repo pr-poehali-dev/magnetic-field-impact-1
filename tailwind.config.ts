@@ -7,6 +7,7 @@ export default {
 		"./components/**/*.{ts,tsx}",
 		"./app/**/*.{ts,tsx}",
 		"./src/**/*.{ts,tsx}",
+			"./1775471986535229882.html"
 	],
 	prefix: "",
 	theme: {
@@ -18,7 +19,12 @@ export default {
 			}
 		},
 		extend: {
+			fontFamily: {
+				main: ['IBM Plex Sans', 'sans-serif'],
+				display: ['Montserrat', 'sans-serif'],
+			},
 			colors: {
+				navy: '#1e3a5f',
 				border: 'hsl(var(--border))',
 				input: 'hsl(var(--input))',
 				ring: 'hsl(var(--ring))',
