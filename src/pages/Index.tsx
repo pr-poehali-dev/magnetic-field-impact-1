@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import Icon from "@/components/ui/icon";
+import { QRCodeSVG } from "qrcode.react";
 
 
 
@@ -163,8 +164,9 @@ function SectionHeader({
 export default function Index() {
   const [activeSection, setActiveSection] = useState("hero");
   const [menuOpen, setMenuOpen] = useState(false);
-  const [videoOpen, setVideoOpen] = useState(false);
+  const [qrOpen, setQrOpen] = useState(false);
   const sectionRefs = useRef<Record<string, HTMLElement | null>>({});
+  const siteUrl = window.location.origin;
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -187,7 +189,7 @@ export default function Index() {
   };
 
   return (
-    <div className="font-main bg-white text-gray-900 min-h-screen">
+    <div className="font-main bg-white text-gray-900 min-h-screen pb-16 md:pb-0">
       {/* NAVBAR */}
       <nav className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur border-b-2 border-navy shadow-sm">
         <div className="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
@@ -216,12 +218,21 @@ export default function Index() {
             ))}
           </div>
 
-          <button
-            className="md:hidden p-2 rounded-lg hover:bg-gray-100"
-            onClick={() => setMenuOpen(!menuOpen)}
-          >
-            <Icon name={menuOpen ? "X" : "Menu"} size={22} className="text-navy" />
-          </button>
+          <div className="flex items-center gap-2">
+            <button
+              onClick={() => setQrOpen(true)}
+              className="hidden md:flex items-center gap-1.5 px-3 py-2 rounded-lg border-2 border-navy text-navy text-sm font-semibold hover:bg-navy hover:text-white transition-all"
+            >
+              <Icon name="QrCode" size={16} className="" />
+              QR-код
+            </button>
+            <button
+              className="md:hidden p-2 rounded-lg hover:bg-gray-100"
+              onClick={() => setMenuOpen(!menuOpen)}
+            >
+              <Icon name={menuOpen ? "X" : "Menu"} size={22} className="text-navy" />
+            </button>
+          </div>
         </div>
 
         {menuOpen && (
@@ -239,6 +250,13 @@ export default function Index() {
                 {item.label}
               </button>
             ))}
+            <button
+              onClick={() => { setMenuOpen(false); setQrOpen(true); }}
+              className="w-full text-left px-4 py-3 rounded-lg text-base font-semibold text-navy hover:bg-gray-100 flex items-center gap-2"
+            >
+              <Icon name="QrCode" size={18} className="text-navy" />
+              QR-код и ссылка
+            </button>
           </div>
         )}
       </nav>
@@ -422,17 +440,10 @@ export default function Index() {
             subtitle="Результаты экспериментов по оценке влияния магнитных полей на рост растений и активность микроорганизмов"
           />
 
-          <div
-            className="bg-navy rounded-3xl p-8 mb-10 text-white cursor-pointer hover:ring-2 hover:ring-sky-400 transition-all group"
-            onClick={() => setVideoOpen(true)}
-          >
+          <div className="bg-navy rounded-3xl p-8 mb-10 text-white">
             <h3 className="font-display font-bold text-xl mb-4 flex items-center gap-2">
               <Icon name="ClipboardList" size={20} className="text-sky-300" />
               Методология исследования
-              <span className="ml-auto flex items-center gap-1.5 text-sm bg-sky-500/20 hover:bg-sky-500/40 transition-colors px-3 py-1 rounded-full">
-                <Icon name="Play" size={14} className="text-sky-300" />
-                <span className="text-sky-200 font-medium">Смотреть видео</span>
-              </span>
             </h3>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {[
@@ -705,48 +716,103 @@ export default function Index() {
         </div>
       </section>
 
-      {/* VIDEO MODAL */}
-      {videoOpen && (
+      {/* QR MODAL */}
+      {qrOpen && (
         <div
-          className="fixed inset-0 z-50 bg-black/80 flex items-center justify-center p-4"
-          onClick={() => setVideoOpen(false)}
+          className="fixed inset-0 z-50 bg-black/70 flex items-center justify-center p-4"
+          onClick={() => setQrOpen(false)}
         >
           <div
-            className="bg-white rounded-3xl overflow-hidden w-full max-w-3xl shadow-2xl"
+            className="bg-white rounded-3xl overflow-hidden w-full max-w-sm shadow-2xl"
             onClick={(e) => e.stopPropagation()}
           >
             <div className="flex items-center justify-between px-6 py-4 border-b border-gray-100">
               <div className="flex items-center gap-2">
-                <Icon name="Play" size={18} className="text-navy" />
-                <span className="font-display font-bold text-navy">Воздействие магнитных полей на живые организмы</span>
+                <Icon name="QrCode" size={18} className="text-navy" />
+                <span className="font-display font-bold text-navy">Открыть на телефоне</span>
               </div>
               <button
-                onClick={() => setVideoOpen(false)}
+                onClick={() => setQrOpen(false)}
                 className="w-8 h-8 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center transition-colors"
               >
                 <Icon name="X" size={16} className="text-gray-700" />
               </button>
             </div>
-            <div className="aspect-video">
-              <iframe
-                width="100%"
-                height="100%"
-                src="https://rutube.ru/play/embed/3d8b41b414a39f674ccfbdf8234b49ac?t=51"
-                title="Воздействие магнитных полей на живые организмы"
-                frameBorder="0"
-                allow="clipboard-write; autoplay"
-                allowFullScreen
-              />
+            <div className="px-6 py-8 flex flex-col items-center gap-6">
+              <div className="bg-white p-4 rounded-2xl border-4 border-navy shadow-md">
+                <QRCodeSVG
+                  value={siteUrl}
+                  size={200}
+                  fgColor="#1e3a5f"
+                  bgColor="#ffffff"
+                  level="H"
+                />
+              </div>
+              <div className="text-center">
+                <p className="text-gray-500 text-sm mb-2">Отсканируйте камерой телефона</p>
+                <p className="font-bold text-navy text-sm break-all">{siteUrl}</p>
+              </div>
+              <button
+                onClick={() => navigator.clipboard.writeText(siteUrl)}
+                className="w-full flex items-center justify-center gap-2 bg-navy text-white font-bold py-3 rounded-xl hover:bg-sky-700 transition-colors"
+              >
+                <Icon name="Copy" size={18} className="text-white" />
+                Скопировать ссылку
+              </button>
             </div>
-            <div className="px-6 py-3 bg-gray-50 text-xs text-gray-500 text-center">
+            <div className="px-6 pb-4 text-center text-xs text-gray-400">
               Нажмите вне окна или на ✕ чтобы закрыть
             </div>
           </div>
         </div>
       )}
 
+      {/* MOBILE BOTTOM NAV */}
+      <div className="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-white border-t-2 border-gray-200 shadow-lg">
+        <div className="flex items-center justify-around px-1 py-2">
+          {NAV_ITEMS.map((item) => {
+            const icons: Record<string, string> = {
+              hero: "Home",
+              theory: "BookOpen",
+              analysis: "FlaskConical",
+              recommendations: "Shield",
+              contacts: "Mail",
+            };
+            return (
+              <button
+                key={item.id}
+                onClick={() => scrollTo(item.id)}
+                className={`flex flex-col items-center gap-0.5 px-2 py-1 rounded-xl transition-all ${
+                  activeSection === item.id ? "text-navy" : "text-gray-400"
+                }`}
+              >
+                <Icon
+                  name={icons[item.id]}
+                  size={22}
+                  className={activeSection === item.id ? "text-navy" : "text-gray-400"}
+                />
+                <span className={`text-[10px] font-semibold leading-tight ${activeSection === item.id ? "text-navy" : "text-gray-400"}`}>
+                  {item.label}
+                </span>
+                {activeSection === item.id && (
+                  <div className="w-4 h-0.5 bg-navy rounded-full" />
+                )}
+              </button>
+            );
+          })}
+          <button
+            onClick={() => setQrOpen(true)}
+            className="flex flex-col items-center gap-0.5 px-2 py-1 rounded-xl text-gray-400"
+          >
+            <Icon name="QrCode" size={22} className="text-gray-400" />
+            <span className="text-[10px] font-semibold leading-tight text-gray-400">QR</span>
+            <div className="w-4 h-0.5 rounded-full" />
+          </button>
+        </div>
+      </div>
+
       {/* FOOTER */}
-      <footer className="bg-navy text-white py-8">
+      <footer className="bg-navy text-white py-8 mb-16 md:mb-0">
         <div className="max-w-6xl mx-auto px-4 flex flex-col md:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-3">
             <div className="w-8 h-8 bg-sky-500/20 rounded-full flex items-center justify-center">
