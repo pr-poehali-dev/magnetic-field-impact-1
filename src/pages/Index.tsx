@@ -17,21 +17,65 @@ const THEORY_CARDS = [
     icon: "Magnet",
     title: "Биомагнетизм",
     text: "Все живые организмы генерируют слабые магнитные поля, обусловленные биоэлектрическими процессами. Клетки реагируют на внешние поля через ионные каналы мембран.",
+    details: {
+      description: "Биомагнетизм — раздел биофизики, изучающий магнитные поля живых организмов и их взаимодействие с внешними полями. Каждая биологическая система от клетки до органа является источником слабых магнитных полей.",
+      facts: [
+        "Сердце человека генерирует поле ~50 пТл — в миллион раз слабее геомагнитного",
+        "Мозг создаёт поля ~1 фТл, регистрируемые только СКВИД-датчиками",
+        "Ионные токи через мембраны — главный источник биомагнетизма",
+        "Магнитные поля клеток участвуют в межклеточной сигнализации",
+        "МРТ использует биомагнетизм для получения изображений органов",
+      ],
+      mechanism: "Биоэлектрические токи, возникающие при работе нервов и мышц, по закону Ампера порождают магнитные поля. Внешние поля, в свою очередь, воздействуют на ионные каналы мембран, изменяя их проницаемость.",
+    },
   },
   {
     icon: "Leaf",
     title: "Влияние на растения",
     text: "Постоянные магнитные поля малой интенсивности стимулируют прорастание семян и рост корневой системы. Данный эффект задокументирован у более 30 видов растений.",
+    details: {
+      description: "Растения чувствительны к магнитным полям на уровне клеточного метаболизма. Воздействие полей изменяет скорость ферментативных реакций, активность фотосинтеза и транспорт воды через мембраны.",
+      facts: [
+        "Поле 50 мТл ускоряет прорастание пшеницы на 21% (данные эксперимента)",
+        "Корневая система редиса вырастает на 45% длиннее в поле 30 мТл",
+        "Хлорофилл синтезируется интенсивнее при воздействии слабых полей",
+        "Водоросли Chlorella увеличивают биомассу на 38% в поле 20 мТл",
+        "Поле >200 мТл угнетает рост — существует оптимальный диапазон",
+      ],
+      mechanism: "Магнитное поле ориентирует молекулы воды и влияет на спиновые состояния радикальных пар в ферментах. Это ускоряет или замедляет биохимические реакции роста и деления клеток.",
+    },
   },
   {
     icon: "PawPrint",
     title: "Влияние на животных",
     text: "Многие животные используют магнитное поле Земли для навигации: птицы, рыбы, черепахи. Искусственные поля дезориентируют их миграционное поведение. У млекопитающих зафиксированы изменения в работе эндокринной и нервной систем при длительном воздействии.",
+    details: {
+      description: "Животные используют магниторецепцию — способность ощущать магнитные поля — для ориентирования в пространстве и внутренних физиологических процессов. Этот механизм изучается уже более 60 лет.",
+      facts: [
+        "Птицы ориентируются по геомагнитному полю через криптохромы глаза",
+        "Лосось находит нерестилище по уникальному «магнитному адресу» реки",
+        "Морские черепахи преодолевают тысячи км, используя магнитную карту",
+        "У пчёл найдены кристаллы магнетита в брюшке для навигации",
+        "Коровы и олени предпочитают ориентироваться вдоль магнитных линий",
+      ],
+      mechanism: "Два основных механизма: кристаллы магнетита Fe₃O₄ в тканях действуют как компасная стрелка; криптохромы в сетчатке реагируют на поле через квантовые эффекты спиновых пар.",
+    },
   },
   {
     icon: "Zap",
     title: "ЭМП и клетки",
     text: "Кальциевые каналы клеточных мембран особенно чувствительны к низкочастотным полям. Это объясняет возможные биохимические изменения при хроническом воздействии.",
+    details: {
+      description: "Электромагнитные поля взаимодействуют с клеткой на уровне мембраны, цитоскелета и ДНК. Особую роль играют кальциевые каналы — ключевые регуляторы клеточных функций.",
+      facts: [
+        "Поля 50 Гц (бытовая сеть) изменяют поток Ca²⁺ через мембрану",
+        "Тепловой эффект ЭМП начинается только при плотности мощности >10 Вт/кг",
+        "ВОЗ классифицирует поля 50/60 Гц как «возможно канцерогенные» (2B)",
+        "Нетепловые эффекты: изменение экспрессии генов при хроническом воздействии",
+        "ТМС (транскраниальная магнитная стимуляция) лечит депрессию через ЭМП",
+      ],
+      mechanism: "Переменное ЭМП индуцирует микротоки в тканях. Изменение трансмембранного потенциала активирует потенциал-зависимые кальциевые каналы, запуская каскады внутриклеточных сигналов.",
+    },
   },
 ];
 
@@ -165,6 +209,7 @@ export default function Index() {
   const [activeSection, setActiveSection] = useState("hero");
   const [menuOpen, setMenuOpen] = useState(false);
   const [qrOpen, setQrOpen] = useState(false);
+  const [theoryCard, setTheoryCard] = useState<typeof THEORY_CARDS[0] | null>(null);
   const sectionRefs = useRef<Record<string, HTMLElement | null>>({});
   const siteUrl = window.location.origin;
 
@@ -375,16 +420,21 @@ export default function Index() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {THEORY_CARDS.map((card, i) => (
-              <div
+              <button
                 key={i}
-                className="bg-white rounded-2xl p-6 border-2 border-gray-100 hover:border-navy transition-all hover:shadow-lg group"
+                onClick={() => setTheoryCard(card)}
+                className="bg-white rounded-2xl p-6 border-2 border-gray-100 hover:border-navy transition-all hover:shadow-lg group text-left cursor-pointer"
               >
                 <div className="w-12 h-12 bg-navy rounded-2xl flex items-center justify-center mb-4 group-hover:bg-sky-600 transition-colors">
                   <Icon name={card.icon} size={22} className="text-white" />
                 </div>
                 <h3 className="font-display font-bold text-navy text-xl mb-2">{card.title}</h3>
                 <p className="text-gray-700 text-base leading-relaxed">{card.text}</p>
-              </div>
+                <div className="mt-4 flex items-center gap-1.5 text-sky-600 text-sm font-semibold group-hover:gap-2.5 transition-all">
+                  <Icon name="ChevronRight" size={16} className="text-sky-600" />
+                  Подробнее
+                </div>
+              </button>
             ))}
           </div>
 
@@ -715,6 +765,75 @@ export default function Index() {
           </div>
         </div>
       </section>
+
+      {/* THEORY CARD MODAL */}
+      {theoryCard && (
+        <div
+          className="fixed inset-0 z-50 bg-black/70 flex items-center justify-center p-4"
+          onClick={() => setTheoryCard(null)}
+        >
+          <div
+            className="bg-white rounded-3xl overflow-hidden w-full max-w-lg shadow-2xl max-h-[90vh] overflow-y-auto"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="bg-navy px-6 py-5 flex items-start justify-between gap-4">
+              <div className="flex items-center gap-3">
+                <div className="w-12 h-12 bg-sky-500/20 rounded-2xl flex items-center justify-center shrink-0">
+                  <Icon name={theoryCard.icon} size={24} className="text-sky-300" />
+                </div>
+                <div>
+                  <p className="text-sky-300 text-sm font-semibold">Теоретические основы</p>
+                  <h2 className="font-display font-black text-white text-xl leading-tight">{theoryCard.title}</h2>
+                </div>
+              </div>
+              <button
+                onClick={() => setTheoryCard(null)}
+                className="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition-colors shrink-0 mt-1"
+              >
+                <Icon name="X" size={16} className="text-white" />
+              </button>
+            </div>
+
+            <div className="px-6 py-6 space-y-6">
+              <p className="text-gray-700 text-base leading-relaxed">{theoryCard.details.description}</p>
+
+              <div>
+                <h3 className="font-display font-bold text-navy text-lg mb-3 flex items-center gap-2">
+                  <Icon name="ListChecks" size={18} className="text-sky-600" />
+                  Ключевые факты
+                </h3>
+                <ul className="space-y-2">
+                  {theoryCard.details.facts.map((fact, i) => (
+                    <li key={i} className="flex gap-3 items-start">
+                      <div className="w-5 h-5 bg-navy rounded-full flex items-center justify-center shrink-0 mt-0.5">
+                        <span className="text-white text-[10px] font-bold">{i + 1}</span>
+                      </div>
+                      <span className="text-gray-700 text-base leading-snug">{fact}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              <div className="bg-sky-50 rounded-2xl p-4 border-l-4 border-navy">
+                <h3 className="font-display font-bold text-navy text-base mb-2 flex items-center gap-2">
+                  <Icon name="Microscope" size={16} className="text-sky-600" />
+                  Механизм воздействия
+                </h3>
+                <p className="text-gray-700 text-base leading-relaxed">{theoryCard.details.mechanism}</p>
+              </div>
+            </div>
+
+            <div className="px-6 pb-6">
+              <button
+                onClick={() => setTheoryCard(null)}
+                className="w-full bg-navy text-white font-bold py-3 rounded-xl hover:bg-sky-700 transition-colors"
+              >
+                Закрыть
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* QR MODAL */}
       {qrOpen && (
